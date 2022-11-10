@@ -16,6 +16,7 @@ const Home = () => {
     const [age, setAge] = useState(25);
 
     const [isPending, setIsPending] = useState(true);
+    const [error, setError] = useState(null);
 
     /* 
     const [blogs, setBlogs] = useState([
@@ -46,12 +47,22 @@ const Home = () => {
         setTimeout(()=>{
         fetch('http://localhost:8000/blogs')
             .then(res => {
+                console.log(res);
+                if(!res.ok) {
+                    throw Error("Could not fetch the data for that resource.")
+                }
                 return res.json();
             })
             .then(data => {
                 console.log(data);
                 setBlogs(data)
                 setIsPending(false)
+                setError(null)
+            })
+            .catch(err=>{
+                console.log(err.message);
+                setIsPending(false);
+                setError(err.message);
             })
         }, 1000)
     }, []);
@@ -94,7 +105,7 @@ const Home = () => {
             <button onClick={changeName}>Change Name to Dan</button>
 
             <button onClick={changeAge}>Change Age to 35</button>
-
+            {error && <div>Could not fetch the data for that resource.</div>}
             {isPending && <div>Loading...</div>}
             {/* && checks if blogs and (right) are True, since blogs is not true at the start until the json is loaded, this skips the error */}
             {blogs && <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} /> }

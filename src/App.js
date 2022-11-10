@@ -1,4 +1,6 @@
 import './App.css';
+import Navbar from './Navbar';
+import Home from './Home';
 
 function App() {
   // Javascript data types can be given to the return to render on the app.
@@ -10,6 +12,9 @@ function App() {
 
   return (
     <div className="App">
+
+      <Navbar />
+
       <div className="content">
         {/* Called from above */}
         <h1>{title}</h1>
@@ -23,6 +28,8 @@ function App() {
         <p>{Math.random() * 10}</p>
 
         <a href={link}>Google</a>
+
+        <Home />
       </div>
     </div>
   );

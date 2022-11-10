@@ -1,5 +1,7 @@
 npm run start
 
+React cannot output object and boolean data types through the app.js. String, numbers, array for example are all fine.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

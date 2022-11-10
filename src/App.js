@@ -1,10 +1,28 @@
 import './App.css';
 
 function App() {
+  // Javascript data types can be given to the return to render on the app.
+  const title = 'Welcome to the new blog';
+  const likes = 50;
+  const link = "https://www.google.com/";
+  // As an example, an object cannot be an output for the React app. 
+  // const person = { name: 'Dave', age: 30 };
+
   return (
     <div className="App">
       <div className="content">
-        <h1>App Components</h1>
+        {/* Called from above */}
+        <h1>{title}</h1>
+        {/* <p> {person} </p> */}
+        <p>Liked {likes} times</p>
+
+        {/* Can also be inserted directly */}
+        <p>{10}</p>
+        <p>{"Hello World"}</p>
+        <p>[1,2,3,4,5]</p> 
+        <p>{Math.random() * 10}</p>
+
+        <a href={link}>Google</a>
       </div>
     </div>
   );

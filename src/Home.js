@@ -15,6 +15,8 @@ const Home = () => {
     const [name, setName] = useState('Sam');
     const [age, setAge] = useState(25);
 
+    const [isPending, setIsPending] = useState(true);
+
     /* 
     const [blogs, setBlogs] = useState([
         { title: "My new blog website", body: "lorem ipsum...", author: 'Sam', id: 1 },
@@ -41,6 +43,7 @@ const Home = () => {
     }, [name]);
 
     useEffect(() => {
+        setTimeout(()=>{
         fetch('http://localhost:8000/blogs')
             .then(res => {
                 return res.json();
@@ -48,7 +51,9 @@ const Home = () => {
             .then(data => {
                 console.log(data);
                 setBlogs(data)
+                setIsPending(false)
             })
+        }, 1000)
     }, []);
 
     /**
@@ -90,6 +95,7 @@ const Home = () => {
 
             <button onClick={changeAge}>Change Age to 35</button>
 
+            {isPending && <div>Loading...</div>}
             {/* && checks if blogs and (right) are True, since blogs is not true at the start until the json is loaded, this skips the error */}
             {blogs && <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} /> }
             {blogs && <BlogList blogs={blogs.filter((blog)=>blog.author==="Taz")} title="Taz's Blogs" handleDelete={handleDelete} /> }

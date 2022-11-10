@@ -16,9 +16,9 @@ const Home = () => {
     const [age, setAge] = useState(25);
 
     const [blogs, setBlogs] = useState([
-        { title: "My new blog website", body: "lorem ipsum...", author: 'Sam', id: 1},
-        { title: "I love it", body: "lorem ipsum...", author: 'Dan', id: 2},
-        { title: "Web dev top tips", body: "lorem ipsum...", author: 'Sam', id: 3}
+        { title: "My new blog website", body: "lorem ipsum...", author: 'Sam', id: 1 },
+        { title: "I love it", body: "lorem ipsum...", author: 'Dan', id: 2 },
+        { title: "Web dev top tips", body: "lorem ipsum...", author: 'Sam', id: 3 }
     ]);
 
     {/**
@@ -60,7 +60,8 @@ const Home = () => {
 
             <button onClick={changeAge}>Change Age to 35</button>
 
-             <BlogList blogs={blogs} title="All Blogs" />
+            <BlogList blogs={blogs} title="All Blogs" />
+            <BlogList blogs={blogs.filter((blog)=>blog.author==="Sam")} title="Sam's Blogs" />
         </div>
     );
 }

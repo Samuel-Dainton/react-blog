@@ -14,6 +14,12 @@ const Home = () => {
     const [name, setName] = useState('Sam');
     const [age, setAge] = useState(25);
 
+    const [blogs, setBlogs] = useState([
+        { title: "My new blog website", body: "lorem ipsum...", author: 'Sam', id: 1},
+        { title: "I love it", body: "lorem ipsum...", author: 'Dan', id: 2},
+        { title: "Web dev top tips", body: "lorem ipsum...", author: 'Sam', id: 3}
+    ]);
+
     {/**
     * Where you reference a function, it automatically gains the e (event) obeject as its first param
     * You don't have to use this, the e's can be left blank
@@ -52,6 +58,13 @@ const Home = () => {
             <button onClick={changeName}>Change Name to Dan</button>
 
             <button onClick={changeAge}>Change Age to 35</button>
+
+            {blogs.map((blog) => (
+                <div className="blog-preview" key={blog.id}>
+                    <h2>{blog.title}</h2>
+                    <p>Written by {blog.author}</p>
+                </div>
+            ))}
         </div>
     );
 }

@@ -15,26 +15,41 @@ const Home = () => {
     const [name, setName] = useState('Sam');
     const [age, setAge] = useState(25);
 
+    /* 
     const [blogs, setBlogs] = useState([
         { title: "My new blog website", body: "lorem ipsum...", author: 'Sam', id: 1 },
         { title: "I love it", body: "lorem ipsum...", author: 'Dan', id: 2 },
         { title: "Web dev top tips", body: "lorem ipsum...", author: 'Sam', id: 3 }
     ]);
-    
+    */
+
+    const [blogs, setBlogs] = useState(null);
+
     const handleDelete = (id) => {
         const newBlogs = blogs.filter(blog => blog.id !== id);
         setBlogs(newBlogs);
-        }
-    
+    }
+
     /* useEffect triggers every time the page is rendered with new information. Useful for fetching data.
     * by adding an empty array as a second param, the useEffect will only trigger on the first page load. 
     * by adding a value to the array, only if that value is changed will the useEffect trigger.
     */
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log('use effect triggered');
         console.log(blogs);
     }, [name]);
+
+    useEffect(() => {
+        fetch('http://localhost:8000/blogs')
+            .then(res => {
+                return res.json();
+            })
+            .then(data => {
+                console.log(data);
+                setBlogs(data)
+            })
+    }, []);
 
     /**
     * Where you reference a function, it automatically gains the e (event) obeject as its first param
@@ -75,8 +90,11 @@ const Home = () => {
 
             <button onClick={changeAge}>Change Age to 35</button>
 
-            <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} />
-            <BlogList blogs={blogs.filter((blog)=>blog.author==="Sam")} title="Sam's Blogs" handleDelete={handleDelete} />
+            {/* && checks if blogs and (right) are True, since blogs is not true at the start until the json is loaded, this skips the error */}
+            {blogs && <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} /> }
+            {blogs && <BlogList blogs={blogs.filter((blog)=>blog.author==="Taz")} title="Taz's Blogs" handleDelete={handleDelete} /> }
+            
+
         </div>
     );
 }

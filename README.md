@@ -1,4 +1,5 @@
 npm run start
+npx json-server --watch data/db.json --port 8000
 
 React cannot output object and boolean data types through the app.js. String, numbers, array for example are all fine.
 

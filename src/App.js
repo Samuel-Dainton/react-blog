@@ -1,5 +1,6 @@
 import Navbar from './Navbar';
 import Home from './Home';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {
   // Javascript data types can be given to the return to render on the app.
@@ -10,27 +11,33 @@ function App() {
   // const person = { name: 'Dave', age: 30 };
 
   return (
-    <div className="App">
+    <Router>
+      <div className="App">
 
-      <Navbar />
+        <Navbar />
 
-      <div className="content">
-        {/* Called from above */}
-        <h1>{title}</h1>
-        {/* <p> {person} </p> */}
-        <p>Liked {likes} times</p>
+        <div className="content">
+          {/* Called from above */}
+          <h1>{title}</h1>
+          {/* <p> {person} </p> */}
+          <p>Liked {likes} times</p>
 
-        {/* Can also be inserted directly */}
-        <p>{10}</p>
-        <p>{"Hello World"}</p>
-        <p>[1,2,3,4,5]</p> 
-        <p>{Math.random() * 10}</p>
+          {/* Can also be inserted directly */}
+          <p>{10}</p>
+          <p>{"Hello World"}</p>
+          <p>[1,2,3,4,5]</p>
+          <p>{Math.random() * 10}</p>
 
-        <a href={link}>Google</a>
+          <a href={link}>Google</a>
 
-        <Home />
+          <Switch>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 

@@ -33,7 +33,7 @@ const Home = () => {
 
     useEffect(() => {
         console.log('use effect triggered');
-        console.log(blogs);
+        /* console.log(blogs); */
     }, [name]);
 
 

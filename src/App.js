@@ -1,6 +1,7 @@
 import Navbar from './Navbar';
 import Home from './Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Create from './Create';
 
 function App() {
   // Javascript data types can be given to the return to render on the app.
@@ -31,8 +32,11 @@ function App() {
           <a href={link}>Google</a>
 
           <Switch>
-            <Route path="/">
+            <Route exact path="/">
               <Home />
+            </Route>
+            <Route exact path="/create">
+              <Create />
             </Route>
           </Switch>
         </div>

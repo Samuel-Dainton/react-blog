@@ -21,6 +21,13 @@ const Home = () => {
         { title: "Web dev top tips", body: "lorem ipsum...", author: 'Sam', id: 3 }
     ]);
 
+    
+    const handleDelete = (id) => {
+        const newBlogs = blogs.filter(blog => blog.id !== id);
+        setBlogs(newBlogs);
+        }
+    
+
     {/**
     * Where you reference a function, it automatically gains the e (event) obeject as its first param
     * You don't have to use this, the e's can be left blank
@@ -60,8 +67,8 @@ const Home = () => {
 
             <button onClick={changeAge}>Change Age to 35</button>
 
-            <BlogList blogs={blogs} title="All Blogs" />
-            <BlogList blogs={blogs.filter((blog)=>blog.author==="Sam")} title="Sam's Blogs" />
+            <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} />
+            <BlogList blogs={blogs.filter((blog)=>blog.author==="Sam")} title="Sam's Blogs" handleDelete={handleDelete} />
         </div>
     );
 }

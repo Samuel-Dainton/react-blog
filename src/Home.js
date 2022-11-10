@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import BlogList from "./BlogList";
+import useFetch from "./useFetch";
 
 const Home = () => {
 
@@ -14,9 +15,8 @@ const Home = () => {
     // let name = "Sam";
     const [name, setName] = useState('Sam');
     const [age, setAge] = useState(25);
-
-    const [isPending, setIsPending] = useState(true);
-    const [error, setError] = useState(null);
+    /* data: blogs gets the data and renames it blogs */
+    const {data: blogs, isPending, error} = useFetch('http://localhost:8000/blogs')
 
     /* 
     const [blogs, setBlogs] = useState([
@@ -25,13 +25,6 @@ const Home = () => {
         { title: "Web dev top tips", body: "lorem ipsum...", author: 'Sam', id: 3 }
     ]);
     */
-
-    const [blogs, setBlogs] = useState(null);
-
-    const handleDelete = (id) => {
-        const newBlogs = blogs.filter(blog => blog.id !== id);
-        setBlogs(newBlogs);
-    }
 
     /* useEffect triggers every time the page is rendered with new information. Useful for fetching data.
     * by adding an empty array as a second param, the useEffect will only trigger on the first page load. 
@@ -43,29 +36,7 @@ const Home = () => {
         console.log(blogs);
     }, [name]);
 
-    useEffect(() => {
-        setTimeout(()=>{
-        fetch('http://localhost:8000/blogs')
-            .then(res => {
-                console.log(res);
-                if(!res.ok) {
-                    throw Error("Could not fetch the data for that resource.")
-                }
-                return res.json();
-            })
-            .then(data => {
-                console.log(data);
-                setBlogs(data)
-                setIsPending(false)
-                setError(null)
-            })
-            .catch(err=>{
-                console.log(err.message);
-                setIsPending(false);
-                setError(err.message);
-            })
-        }, 1000)
-    }, []);
+
 
     /**
     * Where you reference a function, it automatically gains the e (event) obeject as its first param
@@ -108,8 +79,8 @@ const Home = () => {
             {error && <div>Could not fetch the data for that resource.</div>}
             {isPending && <div>Loading...</div>}
             {/* && checks if blogs and (right) are True, since blogs is not true at the start until the json is loaded, this skips the error */}
-            {blogs && <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} /> }
-            {blogs && <BlogList blogs={blogs.filter((blog)=>blog.author==="Taz")} title="Taz's Blogs" handleDelete={handleDelete} /> }
+            {blogs && <BlogList blogs={blogs} title="All Blogs" /> }
+            {blogs && <BlogList blogs={blogs.filter((blog)=>blog.author==="Taz")} title="Taz's Blogs" /> }
             
 
         </div>
